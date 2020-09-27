@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import Person from "./Person/Person";
+import classes from "./Person/Person.module.css";
 
 // Pure component is just like Component but it justs implements shouldComponentUpdate under the hood with complete props check
 class Persons extends PureComponent {
@@ -47,6 +48,7 @@ class Persons extends PureComponent {
           key={person.id}
           click={() => this.props.clicked(index)}
           changed={(event) => this.props.changed(event, person.id)}
+          className={classes.Person}
         />
       );
     });
