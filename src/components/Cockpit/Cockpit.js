@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import classes from "./Cockpit.module.css";
 import AuthContext from "../../context/auth-context";
 
@@ -6,6 +6,11 @@ const Cockpit = (props) => {
   // since it's a functional component thus here React.create() will not work
   // and we will be using a hook named `useRef`
   const toggleBtnRef = useRef(null);
+
+  // in functional components we have useContext react hook whereas in class based components we have static context type
+  const authContext = useContext(AuthContext);
+
+  console.log(authContext.authenticated);
 
   useEffect(() => {
     console.log("[Cockpit.js] useEffect");
@@ -41,9 +46,10 @@ const Cockpit = (props) => {
       <button ref={toggleBtnRef} className={btnClass} onClick={props.onClick}>
         Toggle Persons
       </button>
-      <AuthContext.Consumer>
+      {/* <AuthContext.Consumer>
         {(context) => <button onClick={context.login}>Log In</button>}
-      </AuthContext.Consumer>
+      </AuthContext.Consumer> */}
+      <button onClick={authContext.login}>Log In</button>
     </div>
   );
 };

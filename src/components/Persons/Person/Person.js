@@ -11,24 +11,26 @@ class Person extends Component {
     this.inputElementRef = React.createRef();
   }
 
+  // this is available in Class based components only
+  // and can be accessed outside the class with creating the instance of the class
+  // for functional components we have useContext React hook
+  static contextType = AuthContext;
+
   componentDidMount() {
     console.log("[Person.js] componentDidMount");
     // this.inputElement.focus();
     this.inputElementRef.current.focus();
+    console.log(this.context.authenticated);
   }
   render() {
     return (
       // React has a built in Auxilary component support named Fragment
       <Aux>
-        <AuthContext.Consumer>
-          {(context) =>
-            context.authenticated ? (
-              <p>Authenticated!</p>
-            ) : (
-              <p>Please login in</p>
-            )
-          }
-        </AuthContext.Consumer>
+        {this.context.authenticated ? (
+          <p>Authenticated!</p>
+        ) : (
+          <p>Please login in</p>
+        )}
         <p key="i1" onClick={this.props.click}>
           I'm {this.props.name} and I am {this.props.age} years old
         </p>
