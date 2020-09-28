@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import classes from "./Cockpit.module.css";
 
 const Cockpit = (props) => {
+  // since it's a functional component thus here React.create() will not work
+  // and we will be using a hook named `useRef`
+  const toggleBtnRef = useRef(null);
+
   useEffect(() => {
     console.log("[Cockpit.js] useEffect");
-    setTimeout(() => {
-      // alert("Saved Data to cloud");
-    }, 1000);
+    // setTimeout(() => {
+    //   alert("Saved Data to cloud");
+    // }, 1000);
+    toggleBtnRef.current.click();
     return () => {
       console.log("[Cockpit.js] cleanup");
     };
@@ -32,7 +37,7 @@ const Cockpit = (props) => {
     <div className={classes.Cockpit}>
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(" ")}>This is really working</p>
-      <button className={btnClass} onClick={props.onClick}>
+      <button ref={toggleBtnRef} className={btnClass} onClick={props.onClick}>
         Toggle Persons
       </button>
     </div>
